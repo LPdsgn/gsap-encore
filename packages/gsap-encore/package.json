@@ -1,0 +1,63 @@
+{
+	"name": "gsap-encore",
+	"version": "1.0.0",
+	"description": "GSAP contexts keyed by name, reverted on SPA page swaps (Swup, Barba, Astro)",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
+		},
+		"./debug": {
+			"import": "./dist/debug.mjs",
+			"require": "./dist/debug.cjs"
+		},
+		"./package.json": "./package.json"
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.cts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"dev": "tsdown --watch",
+		"build": "tsdown",
+		"test": "vitest run",
+		"typecheck": "tsc --noEmit",
+		"prepublishOnly": "pnpm test && pnpm build"
+	},
+	"keywords": [
+		"gsap",
+		"animation",
+		"spa",
+		"swup",
+		"barba",
+		"astro",
+		"scrolltrigger",
+		"context",
+		"cleanup",
+		"page-transitions"
+	],
+	"author": "Luigi Pedata",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LPdsgn/gsap-encore.git"
+	},
+	"bugs": "https://github.com/LPdsgn/gsap-encore/issues",
+	"homepage": "https://github.com/LPdsgn/gsap-encore#readme",
+	"license": "MIT",
+	"peerDependencies": {
+		"gsap": "^3.14.2"
+	},
+	"devDependencies": {
+		"@types/node": "^22.0.0",
+		"gsap": "^3.14.2",
+		"jsdom": "^26.0.0",
+		"swup": "^4.0.0",
+		"tsdown": "^0.23.1",
+		"typescript": "^5.0.0",
+		"vitest": "^3.0.0"
+	}
+}

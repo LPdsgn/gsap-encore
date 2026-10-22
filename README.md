@@ -1,34 +1,34 @@
 <p align="center">
-  <img alt="GSAP SPA Manager" src="https://shieldcn.dev/header/graph.svg?title=GSAP+SPA+Manager&subtitle=A+framework-agnostic+GSAP+animation+manager+for+Single+Page+Applications+with+automatic+cleanup%2C+persistence%2C+and+ScrollTrigger+support.&logo=gsap&size=wide&mode=dark">
+  <img alt="gsap-encore" src="https://shieldcn.dev/header/graph.svg?title=gsap-encore&subtitle=GSAP+contexts+keyed+by+name%2C+reverted+on+SPA+page+swaps+%28Swup%2C+Barba%2C+Astro%29.&logo=gsap&size=wide&mode=dark">
 </p>
 <p align="center">
   <img alt="TypeScript" src="https://shieldcn.dev/badge/TypeScript.svg?variant=branded&amp;brand=typescript">
-  <img alt="Release + License" src="https://shieldcn.dev/group/github/release/lpdsgn/gsap-spa-manager+github/license/lpdsgn/gsap-spa-manager.svg?variant=branded">
+  <img alt="Release + License" src="https://shieldcn.dev/group/github/release/lpdsgn/gsap-encore+github/license/lpdsgn/gsap-encore.svg?variant=branded">
 </p>
 
-## Features
+## What it does
 
-- **Framework Agnostic** - Works with Swup, Barba.js, Astro, or standalone
-- **Automatic Cleanup** - Animations are killed on page transitions
-- **Persistence Support** - Mark animations to survive transitions
-- **ScrollTrigger Management** - Centralized registration and cleanup
-- **Multiple Formats** - ESM, CJS, and UMD builds
+- **One `gsap.context()` per feature**, keyed by name, reverted before the next page comes in
+- **`contextSafe`** for animations created later in handlers, like `useGSAP`
+- **Persistence** for elements outside the swapped container
+- **Adapters** for Swup, Barba and Astro view transitions, each its own subpath, no router types leaked
+- **Debug module** on `gsap-encore/debug`, out of production bundles
 
 ## Quick Start
 
 ```bash
-npm install gsap-spa-manager gsap
+npm install gsap-encore gsap
 ```
 
 ```typescript
-import { AM } from '@lpdsgn/gsap-spa-manager';
 import { gsap } from 'gsap';
+import { encore, swupAdapter } from 'gsap-encore';
 
-AM.init({ debug: true });
-AM.animate('hero', gsap.from('.hero', { opacity: 0, y: 50 }));
+encore.init({ adapter: swupAdapter(swup) });
+encore.setup('hero', () => gsap.from('.hero', { opacity: 0, y: 50 }));
 ```
 
-For full documentation and API reference, see the [package README](./packages/gsap-spa-manager/README.md).
+For the API and the SPA gotchas, see the [package README](./packages/gsap-encore/README.md).
 
 ## License
 
