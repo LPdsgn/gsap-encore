@@ -3,7 +3,7 @@
 </p>
 <p align="center">
   <img alt="TypeScript" src="https://shieldcn.dev/badge/TypeScript.svg?variant=branded&amp;brand=typescript">
-  <img alt="Release + License" src="https://shieldcn.dev/group/github/release/lpdsgn/gsap-spa-manager+github/license/lpdsgn/gsap-spa-manager.svg?variant=branded">
+  <img alt="Release + License" src="https://shieldcn.dev/group/github/release/lpdsgn/gsap-encore+github/license/lpdsgn/gsap-encore.svg?variant=branded">
 </p>
 
 ## What it does
