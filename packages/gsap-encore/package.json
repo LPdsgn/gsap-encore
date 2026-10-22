@@ -1,6 +1,6 @@
 {
 	"name": "gsap-encore",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "GSAP contexts keyed by name, reverted on SPA page swaps (Swup, Barba, Astro)",
 	"type": "module",
 	"sideEffects": false,
