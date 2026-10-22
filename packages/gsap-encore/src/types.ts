@@ -3,10 +3,10 @@ export type ContextSafe = <F extends (...args: never[]) => unknown>(fn: F) => F;
 
 /**
  * Setup callback. Everything GSAP created inside is tracked by `ctx`.
- * Return a function to run extra teardown on cleanup (gsap semantics).
+ * Return a function to run extra teardown on cleanup (gsap semantics); any other return value,
+ * like the tween of a concise arrow, is ignored.
  */
-// biome-ignore lint/suspicious/noConfusingVoidType: a setup returns nothing or a teardown
-export type SetupFn = (ctx: gsap.Context, contextSafe: ContextSafe) => void | (() => void);
+export type SetupFn = (ctx: gsap.Context, contextSafe: ContextSafe) => unknown;
 
 export interface SetupOptions {
 	/** Element or selector the context's selectors resolve against */
