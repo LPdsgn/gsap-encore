@@ -12,8 +12,7 @@ npm install gsap-encore gsap
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Swup from 'swup';
-import { encore } from 'gsap-encore';
-import { swupAdapter } from 'gsap-encore/adapters/swup';
+import { encore, swupAdapter } from 'gsap-encore';
 
 gsap.registerPlugin(ScrollTrigger);
 const swup = new Swup();
@@ -78,12 +77,14 @@ Read-only map of the tracked keys, for tooling.
 ## Adapters
 
 ```ts
-import { swupAdapter } from 'gsap-encore/adapters/swup'; // Swup 4: before/after content:replace, detaches with hooks.off
-import { barbaAdapter } from 'gsap-encore/adapters/barba'; // Barba 2: hooks.beforeLeave / hooks.afterEnter
-import { astroAdapter } from 'gsap-encore/adapters/astro'; // astro:before-swap / astro:after-swap
+import { swupAdapter, barbaAdapter, astroAdapter } from 'gsap-encore';
+
+swupAdapter(swup); // Swup 4: before/after content:replace, detaches with hooks.off
+barbaAdapter(barba); // Barba 2: hooks.beforeLeave / hooks.afterEnter
+astroAdapter(); // astro:before-swap / astro:after-swap
 ```
 
-Adapters take structural types, so no router types leak into yours. A custom adapter is an object with `name` and `connect({ beforeSwap, afterSwap })` that returns its disconnect function. Call `beforeSwap` **while the old DOM is still in the document**, so pins and inline styles revert on the right elements.
+Adapters take structural types, so no router types leak into yours, and the ones you don't call are tree-shaken. A custom adapter is an object with `name` and `connect({ beforeSwap, afterSwap })` that returns its disconnect function. Call `beforeSwap` **while the old DOM is still in the document**, so pins and inline styles revert on the right elements.
 
 ## Debugging
 

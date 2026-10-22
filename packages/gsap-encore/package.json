@@ -15,36 +15,6 @@
 				"default": "./dist/index.cjs"
 			}
 		},
-		"./adapters/swup": {
-			"import": {
-				"types": "./dist/adapters/swup.d.ts",
-				"default": "./dist/adapters/swup.js"
-			},
-			"require": {
-				"types": "./dist/adapters/swup.d.cts",
-				"default": "./dist/adapters/swup.cjs"
-			}
-		},
-		"./adapters/barba": {
-			"import": {
-				"types": "./dist/adapters/barba.d.ts",
-				"default": "./dist/adapters/barba.js"
-			},
-			"require": {
-				"types": "./dist/adapters/barba.d.cts",
-				"default": "./dist/adapters/barba.cjs"
-			}
-		},
-		"./adapters/astro": {
-			"import": {
-				"types": "./dist/adapters/astro.d.ts",
-				"default": "./dist/adapters/astro.js"
-			},
-			"require": {
-				"types": "./dist/adapters/astro.d.cts",
-				"default": "./dist/adapters/astro.cjs"
-			}
-		},
 		"./debug": {
 			"import": {
 				"types": "./dist/debug.d.ts",

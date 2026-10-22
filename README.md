@@ -22,8 +22,7 @@ npm install gsap-encore gsap
 
 ```typescript
 import { gsap } from 'gsap';
-import { encore } from 'gsap-encore';
-import { swupAdapter } from 'gsap-encore/adapters/swup';
+import { encore, swupAdapter } from 'gsap-encore';
 
 encore.init({ adapter: swupAdapter(swup) });
 encore.setup('hero', () => gsap.from('.hero', { opacity: 0, y: 50 }));
