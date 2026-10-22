@@ -1,5 +1,11 @@
 # @lpdsgn/gsap-spa-manager
 
+## 2.0.1
+
+### Patch Changes
+
+- [#7](https://github.com/LPdsgn/gsap-encore/pull/7) [`6c87b28`](https://github.com/LPdsgn/gsap-encore/commit/6c87b289b21b8dbedc43dce01e05778144c6caa6) Thanks [@LPdsgn](https://github.com/LPdsgn)! - `gsap-encore/debug` types resolve under TypeScript's legacy `node10` module resolution too (`typesVersions`).
+
 ## 2.0.0
 
 ### Major Changes
