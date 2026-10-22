@@ -61,8 +61,10 @@ export function attach(encore: Encore): () => void {
 		};
 	};
 
+	const describe = (key: string) =>
+		encore.entries().get(key)?.persist ? `${key} (persist)` : key;
 	const offs = [
-		encore.events.on('setup', (key) => log(`🔧 setup ${key}`)),
+		encore.events.on('setup', (key) => log(`🔧 setup ${describe(key)}`)),
 		encore.events.on('cleanup', (key) => log(`🧹 cleanup ${key}`)),
 		encore.events.on('before-swap', () => log('⏳ before swap', [...encore.entries().keys()])),
 		encore.events.on('after-swap', () => {
@@ -76,7 +78,8 @@ export function attach(encore: Encore): () => void {
 
 	const exposed = Object.assign(encore, { orphans });
 	(window as Window & { encore?: typeof exposed }).encore = exposed;
-	log('attached');
+	// Usually attached through a dynamic import, after the first setups ran: list them now
+	log('attached', [...encore.entries().keys()].map(describe));
 
 	return () => {
 		for (const off of offs) off();
