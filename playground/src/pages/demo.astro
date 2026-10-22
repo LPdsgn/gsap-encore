@@ -91,22 +91,24 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
 	import { gsap } from "gsap";
-	import { AM } from "gsap-spa-manager";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { encore } from "gsap-encore";
+	import { attach } from "gsap-encore/debug";
 
-	// Initialize with debug mode
-	AM.init({ debug: true });
+	gsap.registerPlugin(ScrollTrigger);
+	attach(encore);
 
 	// Update status panel
 	function updateStatus() {
-		const status = AM.getStatus();
 		const output = document.getElementById("status-output");
 		if (output) {
-			output.textContent = JSON.stringify(status, null, 2);
+			const keys = [...encore.entries()].map(([key, { persist }]) => ({ key, persist }));
+			output.textContent = JSON.stringify({ keys, orphans: window.encore.orphans() }, null, 2);
 		}
 	}
 
 	// 1. Basic Animation with setup()
-	AM.setup("hero-boxes", (ctx: gsap.Context) => {
+	encore.setup("hero-boxes", () => {
 		gsap.from(".box", {
 			y: 50,
 			opacity: 0,
@@ -116,36 +118,23 @@ import Layout from '../layouts/Layout.astro';
 		});
 	});
 
-	// 2. ScrollTrigger Animation
-	AM.setup("scroll-animations", () => {
-		const boxes = document.querySelectorAll(".scroll-box");
-		boxes.forEach((box, i) => {
-			const trigger = AM.scroll(`scroll-box-${i}`, {
+	// 2. ScrollTrigger Animation: ScrollTrigger.create inside the setup is tracked by its context
+	encore.setup("scroll-animations", (_ctx, contextSafe) => {
+		document.querySelectorAll(".scroll-box").forEach((box) => {
+			ScrollTrigger.create({
 				trigger: box,
 				start: "top 80%",
 				end: "top 30%",
 				toggleActions: "play none none reverse",
-				onEnter: () => {
-					gsap.to(box, {
-						opacity: 1,
-						x: 0,
-						duration: 0.6,
-						ease: "power2.out",
-					});
-				},
-				onLeaveBack: () => {
-					gsap.to(box, {
-						opacity: 0,
-						x: -100,
-						duration: 0.4,
-					});
-				},
+				// Tweens created later (on enter/leave) need contextSafe to be tracked too
+				onEnter: contextSafe(() => gsap.to(box, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" })),
+				onLeaveBack: contextSafe(() => gsap.to(box, { opacity: 0, x: -100, duration: 0.4 })),
 			});
 		});
 	});
 
-	// 3. Persistent Animation (survives cleanup)
-	AM.setup(
+	// 3. Persistent Animation (survives cleanupAll)
+	encore.setup(
 		"persistent-pulse",
 		() => {
 			gsap.to("#persistent-box", {
@@ -161,17 +150,17 @@ import Layout from '../layouts/Layout.astro';
 
 	// Button handlers
 	document.getElementById("btn-cleanup")?.addEventListener("click", () => {
-		AM.cleanupAll();
+		encore.cleanupAll();
 		updateStatus();
 	});
 
 	document.getElementById("btn-refresh")?.addEventListener("click", () => {
-		AM.refresh();
+		encore.refresh();
 		updateStatus();
 	});
 
 	document.getElementById("btn-debug")?.addEventListener("click", () => {
-		AM.debug();
+		console.log(window.encore.orphans());
 		updateStatus();
 	});
 
