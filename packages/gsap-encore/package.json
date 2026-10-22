@@ -1,8 +1,9 @@
 {
-	"name": "@lpdsgn/gsap-spa-manager",
+	"name": "gsap-encore",
 	"version": "1.0.0",
-	"description": "Framework-agnostic GSAP animation manager for SPAs with automatic cleanup, persistence, and ScrollTrigger support",
+	"description": "GSAP contexts keyed by name, reverted on SPA page swaps (Swup, Barba, Astro)",
 	"type": "module",
+	"sideEffects": false,
 	"exports": {
 		".": {
 			"import": {
@@ -16,40 +17,47 @@
 		},
 		"./adapters/swup": {
 			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
+				"types": "./dist/adapters/swup.d.ts",
+				"default": "./dist/adapters/swup.js"
 			},
 			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
+				"types": "./dist/adapters/swup.d.cts",
+				"default": "./dist/adapters/swup.cjs"
 			}
 		},
 		"./adapters/barba": {
 			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
+				"types": "./dist/adapters/barba.d.ts",
+				"default": "./dist/adapters/barba.js"
 			},
 			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
+				"types": "./dist/adapters/barba.d.cts",
+				"default": "./dist/adapters/barba.cjs"
 			}
 		},
 		"./adapters/astro": {
 			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
+				"types": "./dist/adapters/astro.d.ts",
+				"default": "./dist/adapters/astro.js"
 			},
 			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
+				"types": "./dist/adapters/astro.d.cts",
+				"default": "./dist/adapters/astro.cjs"
+			}
+		},
+		"./debug": {
+			"import": {
+				"types": "./dist/debug.d.ts",
+				"default": "./dist/debug.js"
+			},
+			"require": {
+				"types": "./dist/debug.d.cts",
+				"default": "./dist/debug.cjs"
 			}
 		}
 	},
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
-	"browser": "./dist/index.umd.js",
-	"unpkg": "./dist/index.umd.js",
-	"jsdelivr": "./dist/index.umd.js",
 	"types": "./dist/index.d.ts",
 	"files": [
 		"dist"
@@ -57,7 +65,9 @@
 	"scripts": {
 		"dev": "tsup --watch",
 		"build": "tsup",
-		"prepublishOnly": "pnpm build"
+		"test": "vitest run",
+		"typecheck": "tsc --noEmit",
+		"prepublishOnly": "pnpm test && pnpm build"
 	},
 	"keywords": [
 		"gsap",
@@ -65,13 +75,13 @@
 		"spa",
 		"swup",
 		"barba",
+		"astro",
 		"scrolltrigger",
-		"animation-manager",
+		"context",
 		"cleanup",
-		"vanilla-js",
-		"typescript"
+		"page-transitions"
 	],
-	"author": "",
+	"author": "Luigi Pedata",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/LPdsgn/gsap-spa-manager.git"
@@ -82,17 +92,13 @@
 	"peerDependencies": {
 		"gsap": "^3.14.2"
 	},
-	"peerDependenciesMeta": {
-		"gsap": {
-			"optional": false
-		}
-	},
-	"optionalDependencies": {},
 	"devDependencies": {
 		"@types/node": "^22.0.0",
 		"gsap": "^3.14.2",
+		"jsdom": "^26.0.0",
 		"swup": "^4.0.0",
 		"tsup": "8.5.1",
-		"typescript": "^5.0.0"
+		"typescript": "^5.0.0",
+		"vitest": "^3.0.0"
 	}
 }

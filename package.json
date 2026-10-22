@@ -6,10 +6,10 @@
 		"node": ">=20.18.1"
 	},
 	"scripts": {
-		"package:dev": "pnpm --filter gsap-spa-manager dev",
+		"package:dev": "pnpm --filter gsap-encore dev",
 		"playground:dev": "pnpm --filter playground dev",
 		"dev": "pnpm --stream -r -parallel dev",
-		"build": "pnpm --filter gsap-spa-manager build",
+		"build": "pnpm --filter gsap-encore build",
 		"changeset": "changeset",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write",
