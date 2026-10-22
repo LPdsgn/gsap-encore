@@ -6,35 +6,24 @@
 	"sideEffects": false,
 	"exports": {
 		".": {
-			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
 		},
 		"./debug": {
-			"import": {
-				"types": "./dist/debug.d.ts",
-				"default": "./dist/debug.js"
-			},
-			"require": {
-				"types": "./dist/debug.d.cts",
-				"default": "./dist/debug.cjs"
-			}
-		}
+			"import": "./dist/debug.mjs",
+			"require": "./dist/debug.cjs"
+		},
+		"./package.json": "./package.json"
 	},
 	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.cts",
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"dev": "tsup --watch",
-		"build": "tsup",
+		"dev": "tsdown --watch",
+		"build": "tsdown",
 		"test": "vitest run",
 		"typecheck": "tsc --noEmit",
 		"prepublishOnly": "pnpm test && pnpm build"
@@ -67,7 +56,7 @@
 		"gsap": "^3.14.2",
 		"jsdom": "^26.0.0",
 		"swup": "^4.0.0",
-		"tsup": "8.5.1",
+		"tsdown": "^0.23.1",
 		"typescript": "^5.0.0",
 		"vitest": "^3.0.0"
 	}
